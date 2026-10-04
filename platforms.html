@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07090d" />
+  <meta name="description" content="ORYVAEL platform direction: a shared secure AI-native core for developer, desktop and future mobile systems." />
+  <meta property="og:title" content="ORYVAEL Platforms — One core, multiple system surfaces" />
+  <meta property="og:description" content="Why ORYVAEL targets developer/server first, desktop next and mobile later — without changing its authority model." />
+  <meta property="og:type" content="website" />
+  <title>ORYVAEL — Platform Direction</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="phase-2.css" />
+  <link rel="stylesheet" href="platforms.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="ORYVAEL home">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 2 36 11v18L20 38 4 29V11L20 2Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="m12 13 8 5 8-5M20 18v10m-6 3 6-3 6 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>ORYVAEL</span>
+    </a>
+    <nav class="nav" aria-label="Platform navigation">
+      <a href="#position">Position</a>
+      <a href="#desktop">Desktop</a>
+      <a href="#mobile">Mobile</a>
+      <a href="#compatibility">Compatibility</a>
+      <a href="#sequence">Sequence</a>
+    </nav>
+    <a class="button button-compact button-ghost" href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main>
+    <section class="phase-hero section-shell platform-hero">
+      <div class="phase-hero-copy reveal">
+        <a class="back-link" href="index.html">← ORYVAEL overview</a>
+        <p class="kicker">Platform direction</p>
+        <h1>One operating core.<br />Multiple system surfaces.</h1>
+        <p class="phase-lead">
+          ORYVAEL is not designed to become separate server, desktop and mobile operating systems. The long-term model is one capability-native, AI-governed core exposed through different product surfaces.
+        </p>
+        <div class="phase-callout">
+          <span>Strategic rule</span>
+          <strong>Do not copy incumbent operating systems feature-for-feature. Compete where the architecture is structurally different.</strong>
+        </div>
+      </div>
+
+      <div class="surface-map reveal" aria-label="ORYVAEL product surfaces sharing one core">
+        <div class="surface-core"><span>ORYVAEL CORE</span><b>identity · capabilities · IPC · policy · audit · AI supervisor</b></div>
+        <div class="surface-branches">
+          <article><span>01</span><b>Server / Developer</b><small>first operational surface</small></article>
+          <article><span>02</span><b>Desktop</b><small>primary human-facing surface</small></article>
+          <article><span>03</span><b>Mobile</b><small>future ARM64 surface</small></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="position">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">What competition means</p>
+          <h2>Different axis.<br />Same machine.</h2>
+          <p>ORYVAEL does not need to out-copy Windows, macOS, Android or iOS. It needs to make its own architectural advantages visible in daily use.</p>
+        </div>
+
+        <div class="phase-principles platform-principles reveal">
+          <article><span>01</span><h3>AI is a principal</h3><p>Native intelligence can inspect, develop and operate without inheriting unrestricted administrative authority.</p></article>
+          <article><span>02</span><h3>Authority is explicit</h3><p>Apps, services, humans and AI receive object-specific capabilities instead of ambient superuser power.</p></article>
+          <article><span>03</span><h3>Security reasons continuously</h3><p>System evidence can feed native security AI while deterministic policy remains the final authorization boundary.</p></article>
+          <article><span>04</span><h3>The system can explain itself</h3><p>Access decisions can be traced to a principal, object, capability, session and policy decision instead of inferred after the fact.</p></article>
+        </div>
+
+        <div class="phase-statement reveal">
+          <p>The objective is not:</p>
+          <strong>“another desktop that happens to contain an AI assistant.”</strong>
+        </div>
+        <div class="phase-statement reveal statement-positive">
+          <p>The objective is:</p>
+          <strong>“an operating system whose authority, security and development model was designed for software and autonomous intelligence from the beginning.”</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="desktop">
+      <div class="section-heading reveal">
+        <p class="kicker">Desktop direction</p>
+        <h2>The first complete<br />human-facing ORYVAEL.</h2>
+        <p>Desktop is the natural place to prove the interaction model because it forces the operating system to combine applications, permissions, security UX, AI, updates and developer workflows in one visible environment.</p>
+      </div>
+
+      <div class="architecture-pair">
+        <article class="phase-copy reveal">
+          <h3>What Desktop should become</h3>
+          <p>A workstation where development, system administration and continuous security are native services operating through the same capability model as ordinary applications.</p>
+          <ul>
+            <li>windowed shell and compositor</li>
+            <li>keyboard, pointer and display services</li>
+            <li>application lifecycle and package/artifact model</li>
+            <li>human sessions and capability prompts</li>
+            <li>native developer AI and security AI</li>
+            <li>auditable system administration</li>
+          </ul>
+        </article>
+
+        <article class="security-session desktop-example reveal">
+          <pre><code>Browser requests camera.capture/device0
+
+principal      app:browser
+origin         meeting.example
+session        human:interactive/481
+requested      camera.capture
+scope          device0
+
+AI context     active video meeting detected
+policy         human confirmation required
+
+[ Allow once ]   [ Deny ]
+
+If allowed:
+capability expires with the meeting session.</code></pre>
+        </article>
+      </div>
+
+      <div class="phase-feature-grid reveal">
+        <article><span>AI</span><h3>System intelligence</h3><p>Ask why a process has authority, diagnose failures, inspect code, generate fixes and explain security events from real system evidence.</p></article>
+        <article><span>SECURITY</span><h3>Behavior contracts</h3><p>Applications declare expected authority and runtime behavior; deviations become observable security signals.</p></article>
+        <article><span>DEVELOPMENT</span><h3>OS-native DevSecOps</h3><p>Workspace, compiler, tests, security analysis, artifacts and approval boundaries can live inside one governed development environment.</p></article>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="mobile">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">Mobile direction</p>
+          <h2>Same trust model.<br />Different constraints.</h2>
+          <p>Mobile is a valid long-term target, but it should follow desktop and ARM64 maturity. Phones add power, radio, sensor, secure-element and hardware-integration problems that should not fragment the core architecture.</p>
+        </div>
+
+        <div class="mobile-layers reveal">
+          <article><span>PRODUCT SURFACE</span><b>touch shell · notifications · mobile UX · continuity</b></article>
+          <article><span>DEVICE SERVICES</span><b>camera · sensors · location · telephony · biometrics · secure element</b></article>
+          <article><span>COMMON SERVICES</span><b>apps · identity · secrets · networking · AI · updates · audit</b></article>
+          <article class="mobile-core"><span>ORYVAEL CORE</span><b>processes · objects · capabilities · IPC · policy · isolation</b></article>
+        </div>
+
+        <div class="phase-feature-grid reveal">
+          <article><span>ARM64</span><h3>Architecture before device breadth</h3><p>Stabilize kernel contracts on x86_64, then bring the same contracts to ARM64 before chasing many phone models.</p></article>
+          <article><span>POWER</span><h3>Mobile-specific scheduling</h3><p>Background execution, suspend/resume, thermal control and energy budgets must become first-class policy inputs.</p></article>
+          <article><span>HARDWARE</span><h3>Secure device authority</h3><p>Camera, microphone, modem, sensors and secure elements should be exposed as capability-governed objects, not ambient device access.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="compatibility">
+      <div class="section-heading reveal">
+        <p class="kicker">Adoption constraint</p>
+        <h2>An OS without software<br />is a demonstration.</h2>
+        <p>ORYVAEL must preserve its native security model without requiring the software ecosystem to be rewritten from zero.</p>
+      </div>
+
+      <div class="compat-stack reveal">
+        <article><span>01</span><div><b>Native ORYVAEL applications</b><p>Use objects, capabilities and native services directly.</p></div></article>
+        <article><span>02</span><div><b>Web applications</b><p>A browser can provide immediate access to a large application surface while remaining capability-confined.</p></div></article>
+        <article><span>03</span><div><b>WASM runtime</b><p>Portable workloads with an explicit host capability boundary fit the ORYVAEL model naturally.</p></div></article>
+        <article><span>04</span><div><b>POSIX compatibility</b><p>Expose familiar APIs through a compatibility service without making Unix identity or root semantics the native authority model.</p></div></article>
+        <article><span>05</span><div><b>Selected Linux application compatibility</b><p>A future compatibility environment may execute existing applications while the ORYVAEL kernel remains the actual system boundary.</p></div></article>
+      </div>
+
+      <div class="phase-callout compatibility-rule reveal">
+        <span>Porting principle</span>
+        <strong>Prefer upstream software + a small ORYVAEL platform layer + explicit capability manifest over permanent project-specific forks.</strong>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="sequence">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">Execution sequence</p>
+          <h2>Earn each surface.</h2>
+          <p>The project should reach desktop and mobile by expanding a proven core, not by opening parallel feature fronts too early.</p>
+        </div>
+
+        <ol class="platform-sequence reveal">
+          <li><span>01 · NOW</span><div><b>Native authority substrate</b><p>Multi-process isolation, kernel objects, capabilities, identities, entropy, secrets, sessions and audit.</p></div></li>
+          <li><span>02</span><div><b>Native intelligence + developer system</b><p>AI supervisor, tool broker, persistent storage, general sockets and governed development workflows.</p></div></li>
+          <li><span>03</span><div><b>Real software compatibility</b><p>Browser/runtime foundations, POSIX surface, package/artifact lifecycle and upstream ports.</p></div></li>
+          <li><span>04</span><div><b>Desktop prototype → Desktop alpha</b><p>Graphics, input, compositor, secure application UX, updates and daily developer use.</p></div></li>
+          <li><span>05</span><div><b>ARM64 system maturity</b><p>Carry the same kernel, capability and system-service contracts onto ARM64.</p></div></li>
+          <li><span>06 · LATER</span><div><b>Mobile prototype</b><p>Touch shell, power policy, sensors, radio integration and secure-element identity on defined hardware.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="cta section-shell reveal">
+      <div class="cta-mark" aria-hidden="true">Ø</div>
+      <p class="kicker">Long-term direction</p>
+      <h2>Server, desktop and mobile<br />should feel different.<br />They should trust the same core.</h2>
+      <div class="hero-actions">
+        <a class="button button-primary" href="phase-2.html">See the next native phase <span aria-hidden="true">→</span></a>
+        <a class="button button-secondary" href="https://github.com/jellero/ORYVAEL/blob/main/docs/roadmap.md" target="_blank" rel="noreferrer">Technical roadmap <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="section-shell footer-inner">
+      <div>
+        <a class="brand" href="index.html"><span>ORYVAEL</span></a>
+        <p>AI-native operating system research.<br />Intelligence proposes. Humans authorize. ORYVAEL enforces.</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Overview</a>
+        <a href="phase-2.html">Native Phase 2</a>
+        <a href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">Source</a>
+      </div>
+      <p class="footer-meta">Desktop and mobile are long-term architecture targets, not delivered product claims. Current implementation status remains defined by PROJECT_STATUS.md.</p>
+    </div>
+  </footer>
+</body>
+</html>
