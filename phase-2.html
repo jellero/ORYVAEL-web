@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07090d" />
+  <meta name="description" content="ORYVAEL Native Phase 2: identity, isolation, capabilities, cryptographic key lifecycle and governed native AI." />
+  <meta property="og:title" content="ORYVAEL Native Phase 2 — Identity, Isolation & Native Intelligence" />
+  <meta property="og:description" content="The architecture that turns ORYVAEL from a native-kernel proof into a governed substrate for applications, services and AI principals." />
+  <meta property="og:type" content="website" />
+  <title>ORYVAEL — Native Phase 2</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="phase-2.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="ORYVAEL home">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 2 36 11v18L20 38 4 29V11L20 2Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="m12 13 8 5 8-5M20 18v10m-6 3 6-3 6 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>ORYVAEL</span>
+    </a>
+    <nav class="nav" aria-label="Phase 2 navigation">
+      <a href="#principles">Principles</a>
+      <a href="#substrate">Substrate</a>
+      <a href="#identity">Identity</a>
+      <a href="#crypto">Crypto</a>
+      <a href="#intelligence">AI</a>
+      <a href="#exit">Exit criteria</a>
+    </nav>
+    <a class="button button-compact button-ghost" href="https://github.com/jellero/ORYVAEL/blob/main/docs/architecture/native-phase-2.md" target="_blank" rel="noreferrer">Technical spec <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main>
+    <section class="phase-hero section-shell">
+      <div class="phase-hero-copy reveal">
+        <a class="back-link" href="index.html">← ORYVAEL overview</a>
+        <p class="kicker">Native Phase 2</p>
+        <h1>Identity, isolation<br />& native intelligence.</h1>
+        <p class="phase-lead">
+          The next native-runtime milestone turns ORYVAEL from a bootable operating-system foundation into a reusable authority substrate for real processes, services, applications and AI principals.
+        </p>
+        <div class="phase-callout">
+          <span>Design rule</span>
+          <strong>The AI enters a system that already knows how to constrain it.</strong>
+        </div>
+      </div>
+
+      <div class="phase-stack reveal" aria-label="Native Phase 2 dependency order">
+        <div><span>07</span><b>Native AI principals</b><small>reason and act through scoped authority</small></div>
+        <div><span>06</span><b>Audit + sessions</b><small>authenticated, attributable transitions</small></div>
+        <div><span>05</span><b>Entropy + key service</b><small>generated secrets, rotation, signing capabilities</small></div>
+        <div><span>04</span><b>Identity + sandboxing</b><small>principals, limits, isolated workspaces</small></div>
+        <div><span>03</span><b>Capabilities</b><small>grant · revoke · delegate · attenuate</small></div>
+        <div><span>02</span><b>Kernel objects + handles</b><small>non-forgeable authority references</small></div>
+        <div class="phase-stack-foundation"><span>01</span><b>Process substrate</b><small>scheduler · address spaces · recoverable faults</small></div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="principles">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">Why this phase exists</p>
+          <h2>Security before autonomy.</h2>
+          <p>Putting native AI into the image before process isolation, capability enforcement and key lifecycle would reproduce the same ambient-authority problem ORYVAEL is designed to eliminate.</p>
+        </div>
+        <div class="phase-principles reveal">
+          <article><span>01</span><h3>Deny by default</h3><p>Missing authority is a denial. Privilege is never inferred from intelligence, identity names or convenience.</p></article>
+          <article><span>02</span><h3>No self-grant</h3><p>A principal cannot widen its own authority. AI may request capability; it cannot manufacture capability.</p></article>
+          <article><span>03</span><h3>Explicit principals</h3><p>Humans, services, applications, devices and AI workers are distinct identities with distinct authority.</p></article>
+          <article><span>04</span><h3>Attribution everywhere</h3><p>Privileged actions must identify the principal, process, session, object, capability and policy decision.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="substrate">
+      <div class="section-heading reveal">
+        <p class="kicker">2.1 — 2.3</p>
+        <h2>Processes become security boundaries.</h2>
+        <p>The current ring-3 proof becomes a scheduler, object model and capability runtime that can safely host multiple mutually untrusted workloads.</p>
+      </div>
+
+      <div class="architecture-pair">
+        <article class="code-panel reveal">
+          <div class="code-panel-title">Process</div>
+          <pre><code>pid
+principal_id
+address_space
+kernel_stack
+saved_cpu_context
+handle_table
+resource_limits
+state</code></pre>
+        </article>
+        <article class="phase-copy reveal">
+          <h3>Independent failure domains</h3>
+          <p>Each process receives its own address space, kernel execution context and handle table. A page fault or invalid instruction in one userspace process must terminate or isolate that process — not halt the machine.</p>
+          <ul>
+            <li>saved CPU contexts and real context switching</li>
+            <li>multiple runnable and blocked ring-3 processes</li>
+            <li>per-process address spaces</li>
+            <li>recoverable process faults</li>
+            <li>explicit create / start / exit / kill lifecycle</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="object-table reveal">
+        <div class="object-table-head"><span>HANDLE</span><span>OBJECT</span><span>RIGHTS</span></div>
+        <div><span>1</span><b>console:stdout</b><code>WRITE</code></div>
+        <div><span>7</span><b>dir:/srv/web</b><code>READ · ENUMERATE</code></div>
+        <div><span>8</span><b>socket:tcp/443</b><code>LISTEN · ACCEPT</code></div>
+        <div><span>11</span><b>secret:tls/site</b><code>SIGN</code></div>
+        <div><span>14</span><b>ipc:audit</b><code>SEND</code></div>
+      </div>
+
+      <div class="phase-statement reveal">
+        <p>Userspace sees integer handles.</p>
+        <strong>The kernel decides what those handles mean and what they authorize.</strong>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="identity">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">2.4 — 2.5</p>
+          <h2>Users are principals.<br />Sandboxes are native.</h2>
+          <p>ORYVAEL does not need to make Unix superuser semantics its foundation. POSIX compatibility can exist later without defining the native trust model.</p>
+        </div>
+
+        <div class="principal-grid reveal">
+          <article><span>human</span><strong>human:administrator</strong><p>Interactive authority established by authenticated sessions.</p></article>
+          <article><span>service</span><strong>service:ssh</strong><p>System service with only the objects and operations needed to serve SSH.</p></article>
+          <article><span>application</span><strong>app:web-server</strong><p>Application identity independent from the human who installed or started it.</p></article>
+          <article><span>AI</span><strong>ai:security</strong><p>High observability, narrowly constrained mutation authority.</p></article>
+        </div>
+
+        <div class="sandbox-example reveal">
+          <div>
+            <p class="kicker">Sandbox-native</p>
+            <h3>No special container required.</h3>
+            <p>A sandbox is simply a process or process group whose capabilities, objects and resource budgets have been deliberately reduced.</p>
+          </div>
+          <pre><code>principal: ai:developer
+
+allow:
+  workspace.read: project
+  workspace.write: scratch
+  tool.execute: compiler
+  tool.execute: tests
+
+deny-by-absence:
+  production.secret.*
+  root.policy.*
+  release.root_sign
+  audit.delete</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="crypto">
+      <div class="split">
+        <div class="section-heading reveal">
+          <p class="kicker">2.6 — 2.8</p>
+          <h2>Keys become managed objects, not source constants.</h2>
+          <p>Native Phase 2 introduces real entropy, a CSPRNG, generated identities, secret objects, authenticated sessions and attributed audit.</p>
+        </div>
+        <div class="crypto-flow reveal">
+          <div><b>Hardware / platform entropy</b><small>trusted random input</small></div>
+          <i>↓</i>
+          <div><b>CSPRNG</b><small>system random-byte service</small></div>
+          <i>↓</i>
+          <div><b>Key service</b><small>generation · rotation · revocation</small></div>
+          <i>↓</i>
+          <div><b>Secret capability</b><small>sign without exporting private bytes</small></div>
+        </div>
+      </div>
+
+      <div class="phase-feature-grid reveal">
+        <article><h3>Non-exportable use</h3><p>Where possible, an SSH or TLS service receives <code>secret.sign</code>, not the private key itself.</p></article>
+        <article><h3>Authenticated sessions</h3><p>A login resolves to a human principal and session object carrying method, credential identity, source, expiry and capabilities.</p></article>
+        <article><h3>Attributed audit</h3><p>Every privileged transition records who acted, which object was targeted, which capability applied and what decision occurred.</p></article>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="intelligence">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">2.9 — 2.10</p>
+          <h2>The AI is native.<br />It is not sovereign.</h2>
+          <p>The model never belongs in the kernel and never becomes an authorization oracle. AI workers execute in ring 3 as ordinary principals and reach the system through capability-enforced APIs.</p>
+        </div>
+
+        <div class="ai-architecture reveal">
+          <div class="ai-node ai-kernel">ORYVAEL Kernel<small>objects · handles · scheduling · enforcement</small></div>
+          <div class="ai-link">capability-enforced IPC</div>
+          <div class="ai-node ai-supervisor">AI Supervisor<small>principal lifecycle · context · tool mediation</small></div>
+          <div class="ai-workers">
+            <div>Developer AI<small>workspace · compiler · tests</small></div>
+            <div>Security AI<small>audit · telemetry · findings</small></div>
+            <div>Reviewer AI<small>independent verification</small></div>
+          </div>
+          <div class="ai-link">Tool Broker</div>
+          <div class="ai-tools">filesystem · build · network · process · debug · package APIs</div>
+        </div>
+
+        <div class="security-session reveal">
+          <div class="terminal-top"><span></span><span></span><span></span><b>oryvael::human / AI security session</b></div>
+          <pre><code><span class="term-dim">$</span> ai analyze system
+
+<span class="term-label">AI</span> process 84 requested an undeclared outbound connection
+<span class="term-label">AI</span> confidence: high
+<span class="term-label">AI</span> recommended action: freeze process 84
+
+<span class="term-dim">required capability:</span> process.freeze:84
+<span class="term-dim">authorization:</span> human approval required
+
+<span class="term-ok">approved once · expires in 30 seconds</span>
+<span class="term-label">kernel</span> temporary capability issued
+<span class="term-label">AI</span> process frozen · evidence preserved
+<span class="term-label">kernel</span> temporary capability revoked</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="exit">
+      <div class="section-heading reveal">
+        <p class="kicker">Definition of done</p>
+        <h2>Phase 2 ends with evidence.</h2>
+        <p>The milestone is complete only when the complete authority chain is demonstrated in one bootable native image.</p>
+      </div>
+
+      <ol class="exit-grid reveal">
+        <li><span>01</span><p>Multiple independent ring-3 processes are context-switched by the native scheduler.</p></li>
+        <li><span>02</span><p>A userspace fault kills or isolates one process without terminating unrelated workloads.</p></li>
+        <li><span>03</span><p>Kernel objects are accessed only through kernel-managed handles and rights.</p></li>
+        <li><span>04</span><p>Absent, expired and revoked capabilities fail closed.</p></li>
+        <li><span>05</span><p>Authenticated sessions resolve to explicit human principals.</p></li>
+        <li><span>06</span><p>SSH and machine private keys are generated or provisioned outside source code.</p></li>
+        <li><span>07</span><p>Privileged operations emit attributed, tamper-evident audit events.</p></li>
+        <li><span>08</span><p>A native AI worker runs as a restricted ring-3 principal.</p></li>
+        <li><span>09</span><p>The AI detects or analyzes a condition but cannot self-grant the requested response action.</p></li>
+        <li><span>10</span><p>A scoped temporary capability is authorized, exercised and revoked with preserved evidence.</p></li>
+      </ol>
+
+      <div class="phase-final reveal">
+        <p class="kicker">Result</p>
+        <h2>ORYVAEL becomes a governed application and intelligence substrate.</h2>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://github.com/jellero/ORYVAEL/blob/main/docs/architecture/native-phase-2.md" target="_blank" rel="noreferrer">Read the technical specification <span aria-hidden="true">↗</span></a>
+          <a class="button button-secondary" href="index.html">Back to overview</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="section-shell footer-inner">
+      <div>
+        <a class="brand" href="index.html"><span>ORYVAEL</span></a>
+        <p>AI-native operating system research.<br />Intelligence proposes. Humans authorize. ORYVAEL enforces.</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Overview</a>
+        <a href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">Source</a>
+        <a href="https://github.com/jellero/ORYVAEL/tree/main/docs" target="_blank" rel="noreferrer">Docs</a>
+      </div>
+      <p class="footer-meta">Native Phase 2 is a target architecture. Delivered functionality remains defined by PROJECT_STATUS.md.</p>
+    </div>
+  </footer>
+</body>
+</html>
