@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07090d" />
+  <meta name="description" content="ORYVAEL is an AI-native operating system research project that separates intelligence from authority." />
+  <meta property="og:title" content="ORYVAEL — Intelligence without unrestricted authority" />
+  <meta property="og:description" content="A sovereign AI-native operating system built around capabilities, verification, auditability and explicit human authority." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>ORYVAEL — AI-native operating system</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="ORYVAEL home">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 2 36 11v18L20 38 4 29V11L20 2Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="m12 13 8 5 8-5M20 18v10m-6 3 6-3 6 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>ORYVAEL</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#thesis">Thesis</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#runtime">Runtime</a>
+      <a href="#security">Security</a>
+      <a href="#roadmap">Roadmap</a>
+    </nav>
+
+    <a class="button button-compact button-ghost" href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main id="top">
+    <section class="hero section-shell">
+      <div class="hero-copy reveal">
+        <div class="eyebrow"><span class="status-dot"></span> Research preview · native x86_64 runtime</div>
+        <h1>Intelligence without<br /><span>unrestricted authority.</span></h1>
+        <p class="hero-lead">
+          ORYVAEL is an AI-native operating system research project built around one principle:
+          intelligence can be powerful without becoming sovereign.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">Explore the source <span aria-hidden="true">↗</span></a>
+          <a class="button button-secondary" href="#runtime">See what runs today</a>
+        </div>
+        <div class="hero-proof" aria-label="Current implementation highlights">
+          <div><strong>Bare metal</strong><span>UEFI → native kernel</span></div>
+          <div><strong>Ring 3</strong><span>userspace verified</span></div>
+          <div><strong>Native network</strong><span>DHCP · DNS · TCP · SSH</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" aria-label="ORYVAEL trust model illustration">
+        <div class="orbit orbit-a"></div>
+        <div class="orbit orbit-b"></div>
+        <div class="core-glow"></div>
+        <div class="terminal-card terminal-card-main">
+          <div class="terminal-top"><span></span><span></span><span></span><b>oryvael::system</b></div>
+          <pre><code><span class="term-dim">$</span> status
+<span class="term-label">kernel</span>       ready
+<span class="term-label">userspace</span>    CPL3 verified
+<span class="term-label">network</span>      DHCP bound
+<span class="term-label">SSH</span>          listening on tcp/22
+<span class="term-label">authority</span>    human-governed
+
+<span class="term-ok">ORYVAEL SYSTEM READY</span></code></pre>
+        </div>
+        <div class="signal signal-one">CAPABILITY</div>
+        <div class="signal signal-two">EVIDENCE</div>
+        <div class="signal signal-three">POLICY</div>
+      </div>
+    </section>
+
+    <section class="manifesto" id="thesis">
+      <div class="section-shell manifesto-inner reveal">
+        <p class="kicker">Core thesis</p>
+        <h2>AI may reason about the system.<br />It does not own the system.</h2>
+        <p>
+          ORYVAEL separates <strong>intelligence</strong> from <strong>authority</strong>. AI components can analyze requirements,
+          write code, test, inspect security, diagnose failures and prepare changes — while capabilities, policy,
+          verification and root trust remain explicit and independently enforceable.
+        </p>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="architecture">
+      <div class="section-heading reveal">
+        <p class="kicker">System model</p>
+        <h2>Authority is a stack,<br />not a superuser account.</h2>
+        <p>Every privileged transition crosses an explicit boundary. No model belongs to the root of trust.</p>
+      </div>
+
+      <div class="planes reveal">
+        <article class="plane plane-human">
+          <span class="plane-index">01</span>
+          <div><h3>Human governance</h3><p>Constitutional policy, root trust, recovery and irreversible authority remain human-controlled.</p></div>
+        </article>
+        <article class="plane">
+          <span class="plane-index">02</span>
+          <div><h3>AI control plane</h3><p>Agents reason, develop, test, inspect and propose actions as scoped principals.</p></div>
+        </article>
+        <article class="plane">
+          <span class="plane-index">03</span>
+          <div><h3>Verification + policy</h3><p>Deterministic policy, evidence and independent verification decide what may cross privileged boundaries.</p></div>
+        </article>
+        <article class="plane">
+          <span class="plane-index">04</span>
+          <div><h3>System services</h3><p>Applications and native services receive narrow capabilities rather than ambient authority.</p></div>
+        </article>
+        <article class="plane plane-kernel">
+          <span class="plane-index">05</span>
+          <div><h3>ORYVAEL kernel</h3><p>Memory, scheduling, IPC, networking and hardware enforcement form the native runtime boundary.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="runtime">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">Running today</p>
+          <h2>Not a Linux distribution.<br />A native operating system.</h2>
+          <p>The current development image boots directly on x86_64 UEFI and leaves firmware boot services behind before entering the ORYVAEL runtime.</p>
+        </div>
+
+        <div class="runtime-grid">
+          <article class="runtime-card reveal"><span>01</span><h3>Native kernel</h3><p>Freestanding Rust kernel, physical frame allocator, kernel heap and ORYVAEL-owned PML4 root.</p></article>
+          <article class="runtime-card reveal"><span>02</span><h3>Privilege separation</h3><p>GDT/TSS, exception gates, timer interrupts, DPL3 syscall gateway and verified CPL3 execution.</p></article>
+          <article class="runtime-card reveal"><span>03</span><h3>Capability primitives</h3><p>Capability-checked IPC mailbox and native RAM filesystem prove the initial authority boundary.</p></article>
+          <article class="runtime-card reveal"><span>04</span><h3>Native networking</h3><p>RTL8139, ARP, DHCP, IPv4, ICMP, DNS lookup and a deliberately small TCP implementation.</p></article>
+          <article class="runtime-card reveal"><span>05</span><h3>Secure remote access</h3><p>SSHv2 with Ed25519 public-key authentication and separate system/admin identities.</p></article>
+          <article class="runtime-card reveal"><span>06</span><h3>Measured, not claimed</h3><p>Boot and runtime behavior are exercised by automated integration checks under QEMU.</p></article>
+        </div>
+
+        <div class="runtime-note reveal">
+          <div>
+            <span class="mono">CURRENT VERSION</span>
+            <strong>0.0.2-dev</strong>
+          </div>
+          <p>Research-stage foundation. Not yet a production OS, general TCP stack, persistent desktop environment or native AI runtime.</p>
+          <a href="https://github.com/jellero/ORYVAEL/blob/main/PROJECT_STATUS.md" target="_blank" rel="noreferrer">Read verified project status ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="security">
+      <div class="split">
+        <div class="section-heading reveal">
+          <p class="kicker">Continuous security</p>
+          <h2>Reason continuously.<br />Authorize deterministically.</h2>
+          <p>
+            ORYVAEL is designed so native AI can continuously inspect code, runtime behavior and system evidence without receiving unrestricted administrative power.
+          </p>
+        </div>
+
+        <div class="security-flow reveal" aria-label="Security decision flow">
+          <div><span>01</span><b>Observe</b><small>telemetry · code · provenance · behavior</small></div>
+          <i></i>
+          <div><span>02</span><b>Reason</b><small>AI analysis · correlation · vulnerability detection</small></div>
+          <i></i>
+          <div><span>03</span><b>Verify</b><small>evidence · independent checks · policy</small></div>
+          <i></i>
+          <div><span>04</span><b>Enforce</b><small>allow · deny · isolate · require human approval</small></div>
+        </div>
+      </div>
+
+      <div class="principles-grid reveal">
+        <article><h3>Deny by default</h3><p>Missing authority is a denial, not an invitation to infer permission.</p></article>
+        <article><h3>No self-grant</h3><p>An AI principal cannot expand its own capabilities or promote itself into the root of trust.</p></article>
+        <article><h3>No self-approval</h3><p>The component implementing a privileged change cannot be the authority that approves it.</p></article>
+        <article><h3>Evidence before release</h3><p>Privileged changes are expected to carry reproducible evidence and independent verification.</p></article>
+        <article><h3>Auditable actions</h3><p>Authority should be attributable, observable and reconstructable after the fact.</p></article>
+        <article><h3>Human recovery</h3><p>Critical recovery paths must remain independently available to humans.</p></article>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="roadmap">
+      <div class="section-shell roadmap-layout">
+        <div class="section-heading reveal">
+          <p class="kicker">Direction</p>
+          <h2>From kernel proof<br />to governed platform.</h2>
+          <p>ORYVAEL grows by turning vertical prototypes into reusable operating-system primitives.</p>
+          <a class="text-link" href="https://github.com/jellero/ORYVAEL/blob/main/docs/roadmap.md" target="_blank" rel="noreferrer">Full technical roadmap ↗</a>
+        </div>
+
+        <ol class="roadmap-list reveal">
+          <li><span>Now</span><div><b>Generalize the native substrate</b><p>Owned page tables, process contexts, recoverable faults, APIC/IOAPIC and capability object tables.</p></div></li>
+          <li><span>Next</span><div><b>Become a real application platform</b><p>Persistent storage, filesystem services, general sockets, entropy/key provisioning and multi-process scheduling.</p></div></li>
+          <li><span>Then</span><div><b>Port real software</b><p>Compatibility layers and upstream applications with narrow, explicit ORYVAEL capabilities.</p></div></li>
+          <li><span>Goal</span><div><b>Run governed native intelligence</b><p>AI workers at ring 3, policy and audit services, continuous security analysis and human-governed release flows.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="cta section-shell reveal">
+      <div class="cta-mark" aria-hidden="true">Ø</div>
+      <p class="kicker">Open research</p>
+      <h2>Build an operating system<br />where intelligence is powerful<br />and authority stays explicit.</h2>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">View ORYVAEL on GitHub <span aria-hidden="true">↗</span></a>
+        <a class="button button-secondary" href="https://github.com/jellero/ORYVAEL/blob/main/docs/vision.md" target="_blank" rel="noreferrer">Read the vision</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="section-shell footer-inner">
+      <div>
+        <a class="brand" href="#top"><span>ORYVAEL</span></a>
+        <p>AI-native operating system research.<br />Intelligence proposes. Humans authorize. ORYVAEL enforces.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">Source</a>
+        <a href="https://github.com/jellero/ORYVAEL/tree/main/docs" target="_blank" rel="noreferrer">Docs</a>
+        <a href="https://github.com/jellero/ORYVAEL/blob/main/PROJECT_STATUS.md" target="_blank" rel="noreferrer">Status</a>
+      </div>
+      <p class="footer-meta">Research-stage software. Claims on this page are intentionally limited to the public project status and architecture.</p>
+    </div>
+  </footer>
+</body>
+</html>
