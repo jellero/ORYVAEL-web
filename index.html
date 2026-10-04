@@ -30,6 +30,7 @@
       <a href="#runtime">Runtime</a>
       <a href="#security">Security</a>
       <a href="phase-2.html">Phase 2</a>
+      <a href="platforms.html">Platforms</a>
       <a href="#roadmap">Roadmap</a>
     </nav>
 
@@ -97,26 +98,11 @@
       </div>
 
       <div class="planes reveal">
-        <article class="plane plane-human">
-          <span class="plane-index">01</span>
-          <div><h3>Human governance</h3><p>Constitutional policy, root trust, recovery and irreversible authority remain human-controlled.</p></div>
-        </article>
-        <article class="plane">
-          <span class="plane-index">02</span>
-          <div><h3>AI control plane</h3><p>Agents reason, develop, test, inspect and propose actions as scoped principals.</p></div>
-        </article>
-        <article class="plane">
-          <span class="plane-index">03</span>
-          <div><h3>Verification + policy</h3><p>Deterministic policy, evidence and independent verification decide what may cross privileged boundaries.</p></div>
-        </article>
-        <article class="plane">
-          <span class="plane-index">04</span>
-          <div><h3>System services</h3><p>Applications and native services receive narrow capabilities rather than ambient authority.</p></div>
-        </article>
-        <article class="plane plane-kernel">
-          <span class="plane-index">05</span>
-          <div><h3>ORYVAEL kernel</h3><p>Memory, scheduling, IPC, networking and hardware enforcement form the native runtime boundary.</p></div>
-        </article>
+        <article class="plane plane-human"><span class="plane-index">01</span><div><h3>Human governance</h3><p>Constitutional policy, root trust, recovery and irreversible authority remain human-controlled.</p></div></article>
+        <article class="plane"><span class="plane-index">02</span><div><h3>AI control plane</h3><p>Agents reason, develop, test, inspect and propose actions as scoped principals.</p></div></article>
+        <article class="plane"><span class="plane-index">03</span><div><h3>Verification + policy</h3><p>Deterministic policy, evidence and independent verification decide what may cross privileged boundaries.</p></div></article>
+        <article class="plane"><span class="plane-index">04</span><div><h3>System services</h3><p>Applications and native services receive narrow capabilities rather than ambient authority.</p></div></article>
+        <article class="plane plane-kernel"><span class="plane-index">05</span><div><h3>ORYVAEL kernel</h3><p>Memory, scheduling, IPC, networking and hardware enforcement form the native runtime boundary.</p></div></article>
       </div>
     </section>
 
@@ -138,10 +124,7 @@
         </div>
 
         <div class="runtime-note reveal">
-          <div>
-            <span class="mono">CURRENT VERSION</span>
-            <strong>0.0.2-dev</strong>
-          </div>
+          <div><span class="mono">CURRENT VERSION</span><strong>0.0.2-dev</strong></div>
           <p>Research-stage foundation. Not yet a production OS, general TCP stack, persistent desktop environment or native AI runtime.</p>
           <a href="https://github.com/jellero/ORYVAEL/blob/main/PROJECT_STATUS.md" target="_blank" rel="noreferrer">Read verified project status ↗</a>
         </div>
@@ -153,18 +136,13 @@
         <div class="section-heading reveal">
           <p class="kicker">Continuous security</p>
           <h2>Reason continuously.<br />Authorize deterministically.</h2>
-          <p>
-            ORYVAEL is designed so native AI can continuously inspect code, runtime behavior and system evidence without receiving unrestricted administrative power.
-          </p>
+          <p>ORYVAEL is designed so native AI can continuously inspect code, runtime behavior and system evidence without receiving unrestricted administrative power.</p>
         </div>
 
         <div class="security-flow reveal" aria-label="Security decision flow">
-          <div><span>01</span><b>Observe</b><small>telemetry · code · provenance · behavior</small></div>
-          <i></i>
-          <div><span>02</span><b>Reason</b><small>AI analysis · correlation · vulnerability detection</small></div>
-          <i></i>
-          <div><span>03</span><b>Verify</b><small>evidence · independent checks · policy</small></div>
-          <i></i>
+          <div><span>01</span><b>Observe</b><small>telemetry · code · provenance · behavior</small></div><i></i>
+          <div><span>02</span><b>Reason</b><small>AI analysis · correlation · vulnerability detection</small></div><i></i>
+          <div><span>03</span><b>Verify</b><small>evidence · independent checks · policy</small></div><i></i>
           <div><span>04</span><b>Enforce</b><small>allow · deny · isolate · require human approval</small></div>
         </div>
       </div>
@@ -203,6 +181,26 @@
       </div>
     </section>
 
+    <section class="section-shell section" id="platforms">
+      <div class="section-heading reveal">
+        <p class="kicker">Product surfaces</p>
+        <h2>Desktop first.<br />Mobile when the core is ready.</h2>
+        <p>ORYVAEL can grow into developer, desktop and mobile systems without becoming three different operating systems. The same identity, capability, security, audit and AI model should survive every surface.</p>
+      </div>
+
+      <div class="runtime-grid">
+        <article class="runtime-card reveal"><span>01 · FIRST</span><h3>Server / Developer</h3><p>Prove the authority model with real services, software ports, native AI workflows, networking, storage and governed development.</p></article>
+        <article class="runtime-card reveal"><span>02 · NEXT</span><h3>ORYVAEL Desktop</h3><p>Turn capabilities and AI governance into visible daily UX: apps, sessions, security explanations, development and human authorization.</p></article>
+        <article class="runtime-card reveal"><span>03 · LATER</span><h3>ORYVAEL Mobile</h3><p>Carry the same core to ARM64, touch, sensors, secure elements and energy-aware policy after the common contracts are mature.</p></article>
+      </div>
+
+      <div class="runtime-note reveal">
+        <div><span class="mono">COMPETITIVE AXIS</span><strong>Architecture</strong></div>
+        <p>The goal is not to clone Windows, macOS, Android or iOS feature-for-feature. ORYVAEL should compete through explicit authority, governed native AI, continuous security and explainable system behavior.</p>
+        <a href="platforms.html">Explore platform direction →</a>
+      </div>
+    </section>
+
     <section class="section section-dark" id="roadmap">
       <div class="section-shell roadmap-layout">
         <div class="section-heading reveal">
@@ -213,10 +211,10 @@
         </div>
 
         <ol class="roadmap-list reveal">
-          <li><span>Now</span><div><b>Generalize the native substrate</b><p>Owned page tables, process contexts, recoverable faults, APIC/IOAPIC and capability object tables.</p></div></li>
-          <li><span>Next</span><div><b>Become a real application platform</b><p>Persistent storage, filesystem services, general sockets, entropy/key provisioning and multi-process scheduling.</p></div></li>
-          <li><span>Then</span><div><b>Port real software</b><p>Compatibility layers and upstream applications with narrow, explicit ORYVAEL capabilities.</p></div></li>
-          <li><span>Goal</span><div><b>Run governed native intelligence</b><p>AI workers at ring 3, policy and audit services, continuous security analysis and human-governed release flows.</p></div></li>
+          <li><span>Now</span><div><b>Generalize the native substrate</b><p>Owned page tables, process contexts, recoverable faults and capability object tables.</p></div></li>
+          <li><span>Next</span><div><b>Become a real application platform</b><p>Persistent storage, general sockets, entropy/key provisioning, multi-process scheduling and native AI services.</p></div></li>
+          <li><span>Then</span><div><b>Port real software</b><p>Native apps, Web/WASM, POSIX compatibility and upstream applications with narrow ORYVAEL capabilities.</p></div></li>
+          <li><span>Later</span><div><b>Desktop → ARM64 → Mobile</b><p>Prove the human-facing model on desktop, stabilize ARM64 contracts, then extend the same core to mobile hardware.</p></div></li>
         </ol>
       </div>
     </section>
@@ -227,7 +225,7 @@
       <h2>Build an operating system<br />where intelligence is powerful<br />and authority stays explicit.</h2>
       <div class="hero-actions">
         <a class="button button-primary" href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">View ORYVAEL on GitHub <span aria-hidden="true">↗</span></a>
-        <a class="button button-secondary" href="https://github.com/jellero/ORYVAEL/blob/main/docs/vision.md" target="_blank" rel="noreferrer">Read the vision</a>
+        <a class="button button-secondary" href="platforms.html">Explore the long-term platform vision</a>
       </div>
     </section>
   </main>
@@ -240,10 +238,11 @@
       </div>
       <div class="footer-links">
         <a href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">Source</a>
-        <a href="https://github.com/jellero/ORYVAEL/tree/main/docs" target="_blank" rel="noreferrer">Docs</a>
+        <a href="phase-2.html">Native Phase 2</a>
+        <a href="platforms.html">Platforms</a>
         <a href="https://github.com/jellero/ORYVAEL/blob/main/PROJECT_STATUS.md" target="_blank" rel="noreferrer">Status</a>
       </div>
-      <p class="footer-meta">Research-stage software. Claims on this page are intentionally limited to the public project status and architecture.</p>
+      <p class="footer-meta">Research-stage software. Desktop and mobile sections describe architectural direction, not delivered product claims.</p>
     </div>
   </footer>
 </body>
