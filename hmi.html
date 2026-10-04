@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07090d" />
+  <meta name="description" content="ORYVAEL HMI and appliance direction: capability-native interfaces, constrained services, AI diagnostics and explicit safety boundaries." />
+  <meta property="og:title" content="ORYVAEL HMI — Governed interfaces for dedicated systems" />
+  <meta property="og:description" content="Why HMI, kiosk, appliance and embedded interface systems are a natural ORYVAEL target." />
+  <meta property="og:type" content="website" />
+  <title>ORYVAEL — HMI & Appliances</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="phase-2.css" />
+  <link rel="stylesheet" href="hmi.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="ORYVAEL home">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 2 36 11v18L20 38 4 29V11L20 2Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="m12 13 8 5 8-5M20 18v10m-6 3 6 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>ORYVAEL</span>
+    </a>
+    <nav class="nav" aria-label="HMI navigation">
+      <a href="#fit">Why HMI</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#ai">AI</a>
+      <a href="#tv">TV</a>
+      <a href="#safety">Safety</a>
+      <a href="#path">Path</a>
+    </nav>
+    <a class="button button-compact button-ghost" href="platforms.html">Platforms <span aria-hidden="true">→</span></a>
+  </header>
+
+  <main>
+    <section class="phase-hero section-shell hmi-hero">
+      <div class="phase-hero-copy reveal">
+        <a class="back-link" href="platforms.html">← Platform direction</a>
+        <p class="kicker">HMI & dedicated systems</p>
+        <h1>Known hardware.<br />Explicit authority.</h1>
+        <p class="phase-lead">
+          Human-machine interfaces, kiosks and dedicated appliances are a natural ORYVAEL target: constrained hardware, a small application surface and behavior that can be described precisely.
+        </p>
+        <div class="phase-callout">
+          <span>Why it matters</span>
+          <strong>ORYVAEL can demonstrate its security model on useful products before it must solve the full compatibility surface of a general-purpose desktop.</strong>
+        </div>
+      </div>
+
+      <div class="hmi-panel reveal" aria-label="Example ORYVAEL HMI status panel">
+        <div class="hmi-panel-top"><span>ORYVAEL HMI</span><b>CONTROL SURFACE</b></div>
+        <div class="hmi-metric"><span>system</span><b>READY</b></div>
+        <div class="hmi-metric"><span>display service</span><b>GRANTED</b></div>
+        <div class="hmi-metric"><span>machine telemetry</span><b>READ ONLY</b></div>
+        <div class="hmi-metric"><span>actuator authority</span><b class="hmi-denied">NOT GRANTED</b></div>
+        <div class="hmi-alert">AI diagnostics may inspect and recommend. Control authority remains separately governed.</div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="fit">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">Why HMI fits</p>
+          <h2>Smaller compatibility problem.<br />Stronger security signal.</h2>
+          <p>An HMI does not need arbitrary PC hardware and tens of thousands of desktop applications. A defined board and defined workload let ORYVAEL focus on the properties it is designed to prove.</p>
+        </div>
+
+        <div class="phase-principles reveal">
+          <article><span>01</span><h3>Controlled hardware</h3><p>Support a narrow reference matrix instead of every GPU, NIC, input controller and peripheral from day one.</p></article>
+          <article><span>02</span><h3>Declared behavior</h3><p>UI, telemetry, updater and network services have clear responsibilities that map naturally to capabilities.</p></article>
+          <article><span>03</span><h3>Constrained attack surface</h3><p>A compromised interface process should not inherit updater, secret, policy or unrelated device authority.</p></article>
+          <article><span>04</span><h3>Useful AI context</h3><p>Native AI can correlate telemetry, software state and security evidence without becoming the safety controller.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="architecture">
+      <div class="section-heading reveal">
+        <p class="kicker">Authority layout</p>
+        <h2>The interface is not the machine.</h2>
+        <p>A graphical process can be compromised without automatically compromising the updater, device identity, machine secrets or deterministic controller.</p>
+      </div>
+
+      <div class="hmi-stack reveal">
+        <article><span>HMI APPLICATION</span><b>display.render · input.touch · telemetry.read</b><small>No ambient filesystem, update or secret authority.</small></article>
+        <article><span>SYSTEM SERVICES</span><b>display · input · network · telemetry · update · audit</b><small>Each service receives narrowly scoped object handles.</small></article>
+        <article><span>SECURITY + AI</span><b>observe · correlate · diagnose · recommend</b><small>Inspection authority is distinct from machine-control authority.</small></article>
+        <article class="hmi-core"><span>ORYVAEL CORE</span><b>process isolation · capabilities · identity · IPC · policy</b><small>The kernel enforces what each component can actually reach.</small></article>
+      </div>
+
+      <div class="architecture-pair hmi-example-pair">
+        <article class="security-session reveal">
+          <pre><code>principal  app:hmi-shell
+
+ALLOW
+  display.render:panel0
+  input.read:touch0
+  telemetry.read:machine/*
+
+DENY
+  secret.read:machine-root
+  update.install
+  policy.modify
+  actuator.write:*
+  net.connect:arbitrary</code></pre>
+        </article>
+        <article class="phase-copy reveal">
+          <h3>Compromise containment</h3>
+          <p>If the UI parser, browser surface or visualization code is exploited, the attacker inherits the UI principal's capabilities — not an implicit root account.</p>
+          <ul>
+            <li>machine keys remain outside the UI process</li>
+            <li>updates stay signed and policy-gated</li>
+            <li>device access is object-specific</li>
+            <li>security events remain attributed</li>
+            <li>recovery remains independently available</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="ai">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">Native intelligence</p>
+          <h2>Diagnose deeply.<br />Control narrowly.</h2>
+          <p>Dedicated systems produce structured telemetry. That makes them a strong environment for continuous AI analysis, provided the analysis principal is kept separate from deterministic control authority.</p>
+        </div>
+
+        <div class="security-session hmi-ai-session reveal">
+          <pre><code>Security AI
+  network behavior changed after update
+  unexpected outbound destination observed
+  recommendation: isolate service network-agent
+
+Diagnostics AI
+  motor temperature: nominal
+  vibration trend: outside learned baseline
+  recommendation: inspect bearing subsystem
+
+Authority
+  telemetry.inspect      ALLOWED
+  service.freeze         POLICY-GATED
+  actuator.write         DENIED
+  safety-policy.modify   DENIED</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="tv">
+      <div class="section-heading reveal">
+        <p class="kicker">Consumer appliances</p>
+        <h2>TV is possible.<br />HMI is the cleaner first target.</h2>
+        <p>A television uses many of the same concepts, but commercial media devices add difficult proprietary integration requirements that are not necessary to validate the ORYVAEL architecture.</p>
+      </div>
+
+      <div class="phase-feature-grid reveal">
+        <article><span>GOOD FIT</span><h3>Capability-isolated apps</h3><p>A streaming app can receive display, audio and service-specific network authority without access to unrelated credentials or devices.</p></article>
+        <article><span>HARDWARE</span><h3>Media acceleration</h3><p>Real TVs depend on GPU/video decode, audio pipelines, HDMI, remote input, Wi-Fi and Bluetooth integration.</p></article>
+        <article><span>ECOSYSTEM</span><h3>DRM and certification</h3><p>Protected media, HDCP-class requirements, codec licensing and streaming certification can be commercial constraints independent of kernel quality.</p></article>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="safety">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">Safety boundary</p>
+          <h2>Secure HMI is not automatically<br />a safety-certified controller.</h2>
+          <p>Initial ORYVAEL HMI targets should keep deterministic or certified physical control in a separate controller when failure could cause physical harm.</p>
+        </div>
+
+        <div class="safety-boundary reveal">
+          <article><span>ORYVAEL HMI</span><b>visualization · diagnostics · operator commands · cybersecurity</b></article>
+          <div>capability-governed command interface</div>
+          <article class="safety-controller"><span>CONTROL DOMAIN</span><b>PLC / certified controller / deterministic safety logic</b></article>
+        </div>
+
+        <div class="phase-callout reveal">
+          <span>Engineering rule</span>
+          <strong>Do not claim safety-critical control until real-time guarantees, fault models, certification requirements and hardware assumptions are explicitly designed and verified.</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="path">
+      <div class="section-heading reveal">
+        <p class="kicker">Development path</p>
+        <h2>The graphics spike has<br />a practical destination.</h2>
+        <p>The first framebuffer experiment is not merely visual polish. It can become the first step toward a constrained display service and an HMI reference platform.</p>
+      </div>
+
+      <ol class="hmi-path reveal">
+        <li><span>01 · NOW</span><div><b>Framebuffer bring-up</b><p>UEFI GOP handoff, retained framebuffer descriptor, software backbuffer and deterministic 2D primitives.</p></div></li>
+        <li><span>02</span><div><b>Display abstraction</b><p>Move direct framebuffer ownership behind a kernel/device boundary and expose controlled surfaces.</p></div></li>
+        <li><span>03</span><div><b>Input service</b><p>Keyboard, pointer and touch events become explicit input objects rather than ambient device access.</p></div></li>
+        <li><span>04</span><div><b>Simple compositor</b><p>Compose isolated application surfaces without giving applications raw framebuffer memory.</p></div></li>
+        <li><span>05</span><div><b>HMI shell</b><p>Build a reference interface with telemetry, security state and capability-aware operator actions.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="cta section-shell reveal">
+      <div class="cta-mark" aria-hidden="true">Ø</div>
+      <p class="kicker">Reference target</p>
+      <h2>A dedicated system where<br />the UI can be powerful<br />without owning the machine.</h2>
+      <div class="hero-actions">
+        <a class="button button-primary" href="platforms.html">All platform surfaces <span aria-hidden="true">→</span></a>
+        <a class="button button-secondary" href="phase-2.html">Authority architecture</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="section-shell footer-inner">
+      <div><a class="brand" href="index.html"><span>ORYVAEL</span></a><p>AI-native operating system research.<br />Intelligence proposes. Humans authorize. ORYVAEL enforces.</p></div>
+      <div class="footer-links"><a href="platforms.html">Platforms</a><a href="phase-2.html">Native Phase 2</a><a href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">Source</a></div>
+      <p class="footer-meta">HMI, appliance and TV profiles are architecture targets. Current delivered functionality remains defined by PROJECT_STATUS.md.</p>
+    </div>
+  </footer>
+</body>
+</html>
