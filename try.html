@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07090d" />
+  <meta name="description" content="Try ORYVAEL locally in QEMU: prerequisites, build, user-mode NAT, GUI boot and SSH for Windows, Linux and macOS." />
+  <meta property="og:title" content="Try ORYVAEL — Boot the native image locally" />
+  <meta property="og:description" content="Build ORYVAEL, launch it in QEMU/OVMF, create localhost-only NAT forwarding and connect with Ed25519 SSH." />
+  <meta property="og:type" content="website" />
+  <title>ORYVAEL — Try it in QEMU</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="phase-2.css" />
+  <link rel="stylesheet" href="try.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="ORYVAEL home">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 2 36 11v18L20 38 4 29V11L20 2Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="m12 13 8 5 8-5M20 18v10m-6 3 6 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>ORYVAEL</span>
+    </a>
+    <nav class="nav" aria-label="Try ORYVAEL navigation">
+      <a href="#requirements">Requirements</a>
+      <a href="#network">NAT</a>
+      <a href="#windows">Windows</a>
+      <a href="#linux">Linux</a>
+      <a href="#macos">macOS</a>
+      <a href="#verify">Verify</a>
+    </nav>
+    <a class="button button-compact button-ghost" href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">Source <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main>
+    <section class="phase-hero section-shell try-hero">
+      <div class="phase-hero-copy reveal">
+        <a class="back-link" href="index.html">← ORYVAEL overview</a>
+        <p class="kicker">Try ORYVAEL</p>
+        <h1>Boot the native image.<br />Reach it over SSH.</h1>
+        <p class="phase-lead">
+          Build the current x86_64 UEFI image from source, launch it under QEMU/OVMF, let QEMU create a private NAT, and connect to the native ORYVAEL SSH server from Windows, Linux or macOS.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#windows">Choose your host <span aria-hidden="true">↓</span></a>
+          <a class="button button-secondary" href="https://github.com/jellero/ORYVAEL/blob/main/docs/development/try-oryvael.md" target="_blank" rel="noreferrer">Canonical guide <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="try-proof" aria-label="Try ORYVAEL test path">
+          <div><strong>x86_64 UEFI</strong><span>native BOOTX64.EFI</span></div>
+          <div><strong>QEMU NAT</strong><span>localhost:2222 → guest:22</span></div>
+          <div><strong>Ed25519</strong><span>your public key embedded at build</span></div>
+          <div><strong>GOP graphics</strong><span>GUI or headless self-test</span></div>
+        </div>
+      </div>
+
+      <div class="try-terminal reveal" aria-label="Expected ORYVAEL boot and SSH output">
+        <div class="terminal-top"><span></span><span></span><span></span><b>oryvael::try</b></div>
+        <pre><code><span class="term-dim">[ host ]</span> ./scripts/run-os.sh --gui
+ORYVAEL QEMU NAT: 127.0.0.1:2222 -&gt; guest tcp/22
+
+<span class="term-ok">[  OK  ] Native graphics engine online</span>
+<span class="term-ok">[  OK  ] Ring-3 transition verified</span>
+<span class="term-ok">[  OK  ] DHCP lease acquired</span>
+<span class="term-ok">ORYVAEL SYSTEM READY</span>
+
+<span class="term-dim">[ host ]</span> ssh -p 2222 admin@127.0.0.1
+Welcome to ORYVAEL secure shell
+<span class="term-label">oryvael::admin&gt;</span></code></pre>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="requirements">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">Before you start</p>
+          <h2>Small host toolchain.<br />No host OS inside the guest.</h2>
+          <p>QEMU, Rust and image-building tools exist only on the development host. After UEFI hands off the machine, ORYVAEL is the guest operating system.</p>
+        </div>
+
+        <div class="requirements-grid reveal">
+          <article><span>01</span><h3>Git</h3><p>Clone the current source.</p><a href="https://git-scm.com/downloads" target="_blank" rel="noreferrer">git-scm.com ↗</a></article>
+          <article><span>02</span><h3>Rust / rustup</h3><p>The repository pins Rust 1.85.0 and adds the UEFI target during build.</p><a href="https://rustup.rs/" target="_blank" rel="noreferrer">rustup.rs ↗</a></article>
+          <article><span>03</span><h3>QEMU + UEFI</h3><p>QEMU provides the machine; OVMF/EDK2 provides the UEFI handoff.</p><a href="https://www.qemu.org/download/" target="_blank" rel="noreferrer">QEMU downloads ↗</a></article>
+          <article><span>04</span><h3>FAT image tools</h3><p><code>dosfstools</code> and <code>mtools</code> assemble the bootable image.</p></article>
+          <article><span>05</span><h3>OpenSSH client</h3><p>Generate your Ed25519 admin key and connect to ORYVAEL.</p></article>
+          <article><span>06</span><h3>256 MiB VM RAM</h3><p>The current launcher uses a small Q35/qemu64 development machine.</p></article>
+        </div>
+
+        <div class="try-note reveal">
+          <span>IMAGE DELIVERY</span>
+          <p>The canonical public path currently builds the image locally from the repository. CI artifacts are useful for validation but are ephemeral; there is no stable binary release asset yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="network">
+      <div class="section-heading reveal">
+        <p class="kicker">Networking</p>
+        <h2>The NAT is created by QEMU.</h2>
+        <p>You do not need to create a Windows NAT, Linux bridge, macOS bridge, TAP adapter or Internet Connection Sharing for the recommended test path.</p>
+      </div>
+
+      <div class="nat-diagram reveal" aria-label="QEMU user-mode NAT path">
+        <article><span>HOST</span><b>127.0.0.1:2222</b><small>OpenSSH client</small></article>
+        <i>hostfwd</i>
+        <article class="nat-core"><span>QEMU</span><b>user-mode NAT</b><small>private network + DHCP</small></article>
+        <i>RTL8139</i>
+        <article><span>ORYVAEL</span><b>net0 · tcp/22</b><small>native SSHv2 server</small></article>
+      </div>
+
+      <div class="command-card reveal">
+        <div class="command-head"><div><span>QEMU NETWORK CORE</span><b>Created automatically at VM start</b></div><button type="button" data-copy>Copy</button></div>
+        <pre><code>-device rtl8139,netdev=net0
+-netdev user,id=net0,hostfwd=tcp:127.0.0.1:2222-:22</code></pre>
+      </div>
+
+      <div class="security-inline reveal">
+        <strong>Why bind to 127.0.0.1?</strong>
+        <p>The forwarded SSH port is reachable only from the host itself. Do not change the bind address to an external interface for this research image.</p>
+      </div>
+    </section>
+
+    <section class="section section-dark host-section" id="windows">
+      <div class="section-shell">
+        <div class="host-heading reveal"><span class="host-index">01</span><div><p class="kicker">Windows 10 / 11</p><h2>Build with WSL.<br />Run QEMU natively.</h2><p>Windows keeps the GUI and SSH client native. WSL is used only for the portable image build tools.</p></div></div>
+
+        <div class="host-steps">
+          <article class="step-card reveal">
+            <div class="step-title"><span>1</span><h3>Install host prerequisites</h3></div>
+            <p>Run an elevated PowerShell. A first-time WSL install requires a reboot.</p>
+            <div class="command-card"><div class="command-head"><b>PowerShell · Administrator</b><button type="button" data-copy>Copy</button></div><pre><code>winget install --id Git.Git -e
+winget install --id SoftwareFreedomConservancy.QEMU -e
+wsl --install
+Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0</code></pre></div>
+            <div class="reference-links"><a href="https://learn.microsoft.com/windows/wsl/install" target="_blank" rel="noreferrer">WSL install ↗</a><a href="https://learn.microsoft.com/windows-server/administration/openssh/openssh-install-first-use" target="_blank" rel="noreferrer">Windows OpenSSH ↗</a></div>
+          </article>
+
+          <article class="step-card reveal">
+            <div class="step-title"><span>2</span><h3>Clone and prepare WSL build tools</h3></div>
+            <div class="command-card"><div class="command-head"><b>PowerShell</b><button type="button" data-copy>Copy</button></div><pre><code>git clone https://github.com/jellero/ORYVAEL.git
+Set-Location ORYVAEL
+wsl bash -c 'sudo apt-get update &amp;&amp; sudo apt-get install -y curl build-essential dosfstools mtools &amp;&amp; if ! command -v rustup &gt;/dev/null 2&gt;&amp;1; then curl --proto "=https" --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y; fi'</code></pre></div>
+          </article>
+
+          <article class="step-card reveal">
+            <div class="step-title"><span>3</span><h3>Create your SSH administrator key</h3></div>
+            <p>The private key remains in <code>.oryvael\oryvael_admin</code>. The build embeds only its public key.</p>
+            <div class="command-card"><div class="command-head"><b>PowerShell</b><button type="button" data-copy>Copy</button></div><pre><code>New-Item -ItemType Directory -Force .oryvael | Out-Null
+cmd.exe /d /s /c 'ssh-keygen -q -t ed25519 -N "" -f .oryvael\oryvael_admin -C oryvael-admin'</code></pre></div>
+          </article>
+
+          <article class="step-card reveal">
+            <div class="step-title"><span>4</span><h3>Build the image</h3></div>
+            <div class="command-card"><div class="command-head"><b>PowerShell → WSL build</b><button type="button" data-copy>Copy</button></div><pre><code>wsl bash -c '. "$HOME/.cargo/env" &amp;&amp; ./scripts/build-os.sh'</code></pre></div>
+            <p class="step-result"><code>dist\oryvael-x86_64-uefi.img</code> is now ready for Windows QEMU.</p>
+          </article>
+
+          <article class="step-card reveal">
+            <div class="step-title"><span>5</span><h3>Launch QEMU + create NAT</h3></div>
+            <div class="command-card"><div class="command-head"><b>PowerShell</b><button type="button" data-copy>Copy</button></div><pre><code>.\scripts\run-os.cmd -NetworkMode User -DisplayMode Gui</code></pre></div>
+            <p>The launcher keeps the VGA/GOP device enabled and creates <code>127.0.0.1:2222 → guest:22</code>.</p>
+          </article>
+
+          <article class="step-card reveal">
+            <div class="step-title"><span>6</span><h3>Connect with SSH</h3></div>
+            <p>Open a second PowerShell in the ORYVAEL repository.</p>
+            <div class="command-card"><div class="command-head"><b>PowerShell</b><button type="button" data-copy>Copy</button></div><pre><code>ssh -i .\.oryvael\oryvael_admin -p 2222 admin@127.0.0.1</code></pre></div>
+          </article>
+        </div>
+
+        <div class="alternate-port reveal"><span>PORT 2222 BUSY?</span><code>.\scripts\run-os.cmd -NetworkMode User -DisplayMode Gui -SshHostPort 2223</code><code>ssh -i .\.oryvael\oryvael_admin -p 2223 admin@127.0.0.1</code></div>
+      </div>
+    </section>
+
+    <section class="section-shell section host-section" id="linux">
+      <div class="host-heading reveal"><span class="host-index">02</span><div><p class="kicker">Linux · Ubuntu / Debian</p><h2>Native host toolchain.<br />One launcher.</h2></div></div>
+
+      <div class="host-steps">
+        <article class="step-card reveal">
+          <div class="step-title"><span>1</span><h3>Install requirements + Rust</h3></div>
+          <div class="command-card"><div class="command-head"><b>Shell</b><button type="button" data-copy>Copy</button></div><pre><code>sudo apt-get update
+sudo apt-get install -y git curl build-essential dosfstools mtools ovmf qemu-system-x86 openssh-client
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+. "$HOME/.cargo/env"</code></pre></div>
+        </article>
+
+        <article class="step-card reveal">
+          <div class="step-title"><span>2</span><h3>Clone + provision admin key</h3></div>
+          <div class="command-card"><div class="command-head"><b>Shell</b><button type="button" data-copy>Copy</button></div><pre><code>git clone https://github.com/jellero/ORYVAEL.git
+cd ORYVAEL
+mkdir -p .oryvael
+ssh-keygen -q -t ed25519 -N '' -f .oryvael/oryvael_admin -C oryvael-admin</code></pre></div>
+        </article>
+
+        <article class="step-card reveal">
+          <div class="step-title"><span>3</span><h3>Build</h3></div>
+          <div class="command-card"><div class="command-head"><b>Shell</b><button type="button" data-copy>Copy</button></div><pre><code>./scripts/build-os.sh</code></pre></div>
+        </article>
+
+        <article class="step-card reveal">
+          <div class="step-title"><span>4</span><h3>Launch GUI + NAT</h3></div>
+          <div class="command-card"><div class="command-head"><b>Shell</b><button type="button" data-copy>Copy</button></div><pre><code>./scripts/run-os.sh --gui</code></pre></div>
+        </article>
+
+        <article class="step-card reveal">
+          <div class="step-title"><span>5</span><h3>SSH from a second terminal</h3></div>
+          <div class="command-card"><div class="command-head"><b>Shell</b><button type="button" data-copy>Copy</button></div><pre><code>ssh -i .oryvael/oryvael_admin -p 2222 admin@127.0.0.1</code></pre></div>
+        </article>
+      </div>
+
+      <div class="alternate-port reveal"><span>ALTERNATE PORT</span><code>./scripts/run-os.sh --gui --ssh-port 2223</code><code>ssh -i .oryvael/oryvael_admin -p 2223 admin@127.0.0.1</code></div>
+    </section>
+
+    <section class="section section-dark host-section" id="macos">
+      <div class="section-shell">
+        <div class="host-heading reveal"><span class="host-index">03</span><div><p class="kicker">macOS · Intel / Apple Silicon</p><h2>Homebrew QEMU.<br />Same ORYVAEL image.</h2><p>On Apple Silicon, QEMU emulates the x86_64 CPU, so boot is slower than on an x86_64 host. The image and network contract remain the same.</p></div></div>
+
+        <div class="host-steps">
+          <article class="step-card reveal">
+            <div class="step-title"><span>1</span><h3>Install requirements + Rust</h3></div>
+            <p>Install Homebrew first if required: <a href="https://brew.sh/" target="_blank" rel="noreferrer">brew.sh ↗</a></p>
+            <div class="command-card"><div class="command-head"><b>Terminal</b><button type="button" data-copy>Copy</button></div><pre><code>brew install git qemu dosfstools mtools
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+. "$HOME/.cargo/env"</code></pre></div>
+          </article>
+
+          <article class="step-card reveal">
+            <div class="step-title"><span>2</span><h3>Clone + provision admin key</h3></div>
+            <div class="command-card"><div class="command-head"><b>Terminal</b><button type="button" data-copy>Copy</button></div><pre><code>git clone https://github.com/jellero/ORYVAEL.git
+cd ORYVAEL
+mkdir -p .oryvael
+ssh-keygen -q -t ed25519 -N '' -f .oryvael/oryvael_admin -C oryvael-admin</code></pre></div>
+          </article>
+
+          <article class="step-card reveal">
+            <div class="step-title"><span>3</span><h3>Build</h3></div>
+            <p>The build is portable on macOS: it uses <code>dd</code>, <code>dosfstools</code> and <code>mtools</code>; GNU <code>truncate</code> is not required.</p>
+            <div class="command-card"><div class="command-head"><b>Terminal</b><button type="button" data-copy>Copy</button></div><pre><code>./scripts/build-os.sh</code></pre></div>
+          </article>
+
+          <article class="step-card reveal">
+            <div class="step-title"><span>4</span><h3>Launch GUI + NAT</h3></div>
+            <p>The launcher discovers the EDK2 firmware installed with the Homebrew QEMU formula.</p>
+            <div class="command-card"><div class="command-head"><b>Terminal</b><button type="button" data-copy>Copy</button></div><pre><code>./scripts/run-os.sh --gui</code></pre></div>
+          </article>
+
+          <article class="step-card reveal">
+            <div class="step-title"><span>5</span><h3>SSH from a second terminal</h3></div>
+            <div class="command-card"><div class="command-head"><b>Terminal</b><button type="button" data-copy>Copy</button></div><pre><code>ssh -i .oryvael/oryvael_admin -p 2222 admin@127.0.0.1</code></pre></div>
+          </article>
+        </div>
+
+        <div class="alternate-port reveal"><span>ALTERNATE PORT</span><code>./scripts/run-os.sh --gui --ssh-port 2223</code><code>ssh -i .oryvael/oryvael_admin -p 2223 admin@127.0.0.1</code></div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="verify">
+      <div class="section-heading reveal">
+        <p class="kicker">Verification</p>
+        <h2>Know what success looks like.</h2>
+        <p>The current CI exercises the same native boot path under QEMU/OVMF. Your local boot should expose the same major boundaries before SSH is used.</p>
+      </div>
+
+      <div class="verify-grid">
+        <div class="command-card reveal"><div class="command-head"><b>Expected boot evidence</b><button type="button" data-copy>Copy</button></div><pre><code>[  OK  ] Native graphics engine online
+[ INFO ] Display width: 1280
+[ INFO ] Display height: 800
+[  OK  ] Framebuffer animation self-test complete
+[  OK  ] Ring-3 transition verified
+[  OK  ] DHCP lease acquired
+[ INFO ] IPv4 address: 10.0.2.15
+[  OK  ] Scheduler and recovery console ready
+ORYVAEL SYSTEM READY</code></pre></div>
+
+        <div class="command-card reveal"><div class="command-head"><b>Inside SSH</b><button type="button" data-copy>Copy</button></div><pre><code>help
+whoami
+ip
+uptime
+exit</code></pre></div>
+      </div>
+
+      <div class="try-note reveal">
+        <span>DHCP ADDRESS</span>
+        <p><code>10.0.2.15</code> is the address observed by the current QEMU user-network integration test. Treat the explicit localhost forward as the stable host connection path.</p>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="troubleshooting">
+      <div class="section-shell">
+        <div class="section-heading reveal"><p class="kicker">Troubleshooting</p><h2>Three checks cover most failures.</h2></div>
+        <div class="trouble-grid reveal">
+          <article><span>PORT</span><h3>Is 2222 already used?</h3><p>Choose 2223 or another free host port with <code>--ssh-port</code> / <code>-SshHostPort</code>.</p></article>
+          <article><span>KEY</span><h3>Permission denied (publickey)</h3><p>Generate <code>.oryvael/oryvael_admin.pub</code>, rebuild the image, then connect with the matching private key.</p></article>
+          <article><span>FIRMWARE</span><h3>OVMF/EDK2 not found</h3><p>Install the documented QEMU/OVMF package, or set <code>OVMF_CODE</code> and <code>OVMF_VARS</code> explicitly on Unix hosts.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta section-shell reveal">
+      <div class="cta-mark" aria-hidden="true">Ø</div>
+      <p class="kicker">Development image</p>
+      <h2>Boot it.<br />Inspect it.<br />Break assumptions with evidence.</h2>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">Clone ORYVAEL <span aria-hidden="true">↗</span></a>
+        <a class="button button-secondary" href="https://github.com/jellero/ORYVAEL/blob/main/PROJECT_STATUS.md" target="_blank" rel="noreferrer">Verified status <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="section-shell footer-inner">
+      <div><a class="brand" href="index.html"><span>ORYVAEL</span></a><p>AI-native operating system research.<br />Intelligence proposes. Humans authorize. ORYVAEL enforces.</p></div>
+      <div class="footer-links"><a href="index.html">Overview</a><a href="platforms.html">Platforms</a><a href="hmi.html">HMI</a><a href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">Source</a></div>
+      <p class="footer-meta">This procedure runs a research-stage development image. The localhost NAT binding is intentional; do not expose the current SSH service directly to an untrusted network.</p>
+    </div>
+  </footer>
+</body>
+</html>
