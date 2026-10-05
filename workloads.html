@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07090d" />
+  <meta name="description" content="ORYVAEL Workloads: container philosophy evolved into a native capability, identity and evidence model." />
+  <meta property="og:title" content="ORYVAEL Workloads — Containers, evolved" />
+  <meta property="og:description" content="Immutable artifacts, explicit principals, capability-scoped authority, resource budgets and evidence as one native workload model." />
+  <meta property="og:type" content="website" />
+  <title>ORYVAEL Workloads — Containers, evolved</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="phase-2.css" />
+  <link rel="stylesheet" href="workloads.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="ORYVAEL home">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 2 36 11v18L20 38 4 29V11L20 2Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="m12 13 8 5 8-5M20 18v10m-6 3 6 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>ORYVAEL</span>
+    </a>
+    <nav class="nav" aria-label="Workloads navigation">
+      <a href="#evolution">Evolution</a>
+      <a href="#model">Model</a>
+      <a href="#oci">OCI</a>
+      <a href="#developer">Developer UX</a>
+      <a href="#ai">AI</a>
+      <a href="#path">Path</a>
+    </nav>
+    <a class="button button-compact button-ghost" href="https://github.com/jellero/ORYVAEL/blob/main/docs/architecture/native-workloads.md" target="_blank" rel="noreferrer">Specification <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main>
+    <section class="phase-hero section-shell workload-hero">
+      <div class="phase-hero-copy reveal">
+        <a class="back-link" href="index.html">← ORYVAEL overview</a>
+        <p class="kicker">ORYVAEL Workloads</p>
+        <h1>Containers,<br />evolved.</h1>
+        <p class="phase-lead">
+          Containers made software portable. ORYVAEL Workloads extend that idea by making authority portable too: artifact identity, principal identity, capabilities, resource budgets, object visibility and evidence become one native runtime contract.
+        </p>
+        <div class="workload-badge">Design target · executable manifest contract available now</div>
+        <div class="phase-callout">
+          <span>Core idea</span>
+          <strong>Containers were an abstraction over processes. ORYVAEL Workloads are an abstraction over authority.</strong>
+        </div>
+      </div>
+
+      <div class="workload-visual reveal" aria-label="ORYVAEL workload architecture">
+        <div class="workload-node"><span>ARTIFACT</span><b>immutable · digest-addressed</b><small>Native or OCI-distributed application payload.</small></div>
+        <div class="workload-arrow">↓</div>
+        <div class="workload-node"><span>IDENTITY</span><b>principal: workload:web</b><small>No implicit authority from UID, process ancestry or image contents.</small></div>
+        <div class="workload-arrow">↓</div>
+        <div class="workload-node"><span>AUTHORITY</span><b>capability table</b><small>Explicit socket, directory, volume, secret and IPC object rights.</small></div>
+        <div class="workload-arrow">↓</div>
+        <div class="workload-node workload-node-core"><span>RUNTIME</span><b>process or microVM</b><small>Bounded resources, explicit object namespace, attributed lifecycle.</small></div>
+        <div class="workload-arrow">↓</div>
+        <div class="workload-node"><span>EVIDENCE</span><b>audit · provenance · behavior</b><small>What was granted, what was used and what was denied.</small></div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="evolution">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">Natural evolution</p>
+          <h2>Keep the container experience.<br />Replace ambient authority.</h2>
+          <p>ORYVAEL does not need to reproduce Docker Engine or Linux namespaces as its native substrate. It can preserve the useful philosophy — reproducible artifacts, registries, fast lifecycle and isolation — while rebuilding execution around ORYVAEL primitives.</p>
+        </div>
+
+        <div class="workload-compare reveal">
+          <article>
+            <span>CLASSIC CONTAINER MODEL</span>
+            <h3>Constrain a Linux process.</h3>
+            <ul>
+              <li>image + filesystem layers</li>
+              <li>namespaces</li>
+              <li>cgroups</li>
+              <li>seccomp / LSM defense in depth</li>
+              <li>UID/GID/root compatibility semantics</li>
+              <li>Linux kernel runtime boundary</li>
+            </ul>
+          </article>
+          <article class="workload-native">
+            <span>ORYVAEL WORKLOAD MODEL</span>
+            <h3>Instantiate explicit authority.</h3>
+            <ul>
+              <li>verified immutable artifact</li>
+              <li>workload principal</li>
+              <li>kernel-owned capability handles</li>
+              <li>resource budget</li>
+              <li>object namespace</li>
+              <li>volumes + bounded secret operations</li>
+              <li>audit and evidence by construction</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="workload-statement reveal">
+          <p>The intended shift is not cosmetic.</p>
+          <strong>Isolation stops being the whole security story. Authority becomes a first-class runtime object.</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="model">
+      <div class="section-heading reveal">
+        <p class="kicker">Native invariants</p>
+        <h2>No privileged mode.<br />No native root escape hatch.</h2>
+        <p>A workload can only operate on objects represented by capabilities instantiated for its principal. Compatibility identities may exist later, but they cannot widen native authority.</p>
+      </div>
+
+      <div class="workload-rules reveal">
+        <article class="workload-rule"><span>01</span><h3>Deny by default</h3><p>Network and object access begin denied. Missing authority is not inferred.</p></article>
+        <article class="workload-rule"><span>02</span><h3>No wildcard authority</h3><p>The manifest contract rejects broad <code>*</code> capability requests.</p></article>
+        <article class="workload-rule"><span>03</span><h3>No self-grant</h3><p>Workloads cannot request kernel, policy, root or capability-administration authority.</p></article>
+        <article class="workload-rule"><span>04</span><h3>Secret operations</h3><p>Signing or decryption handles are preferred to placing raw private keys inside the workload.</p></article>
+      </div>
+
+      <div class="architecture-pair reveal">
+        <div class="code-panel">
+          <div class="code-panel-title">workload manifest</div>
+          <pre><code>{
+  "version": "oryvael-workload/1",
+  "id": "example.web",
+  "artifact": {
+    "format": "oci",
+    "digest": "sha256:...",
+    "platform": "oryvael/x86_64"
+  },
+  "isolation": "process",
+  "resources": {
+    "memory_bytes": 268435456,
+    "cpu_millis_per_second": 250,
+    "max_processes": 8
+  },
+  "network": { "default": "deny" },
+  "capabilities": [
+    {
+      "resource": "socket:tcp/8080",
+      "actions": ["listen", "accept"]
+    }
+  ]
+}</code></pre>
+        </div>
+        <div class="phase-copy">
+          <h3>The artifact is not the authority.</h3>
+          <p>An image can contain code and metadata. It does not get to decide what the machine grants it.</p>
+          <ul>
+            <li>artifact digest identifies executable content;</li>
+            <li>manifest describes requested runtime authority;</li>
+            <li>policy decides what may actually be granted;</li>
+            <li>kernel handles enforce the decision;</li>
+            <li>audit records the lifecycle and use of authority.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="oci">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">OCI without runc dependency</p>
+          <h2>Reuse distribution.<br />Own execution.</h2>
+          <p>OCI is valuable as a content-addressed distribution ecosystem. ORYVAEL can consume registry manifests, layers, signatures, attestations and SBOMs without making Linux container semantics its native runtime.</p>
+        </div>
+
+        <div class="workload-layer-grid reveal">
+          <article class="workload-layer"><span>REGISTRY</span><h3>Pull / push</h3><p>Reuse mature content distribution and caching infrastructure.</p></article>
+          <article class="workload-layer"><span>DIGEST</span><h3>Immutable identity</h3><p>Bind execution and evidence to exact artifact bytes rather than mutable tags alone.</p></article>
+          <article class="workload-layer"><span>PROVENANCE</span><h3>SBOM + attestations</h3><p>Carry build evidence and publisher identity alongside the artifact.</p></article>
+          <article class="workload-layer"><span>ORYVAEL/*</span><h3>Native target</h3><p>Execute through the ORYVAEL workload manager and capability model.</p></article>
+          <article class="workload-layer"><span>LINUX/*</span><h3>Compatibility target</h3><p>Run only through an explicit Linux ABI or confined microVM compatibility path.</p></article>
+          <article class="workload-layer"><span>POLICY</span><h3>Independent authority</h3><p>Being downloadable from a registry never implies permission to execute with requested rights.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="developer">
+      <div class="section-heading reveal">
+        <p class="kicker">Developer experience</p>
+        <h2>Familiar workflow.<br />Stronger runtime contract.</h2>
+        <p>The eventual lifecycle should feel immediate to developers while making authority visible at the point where a workload is instantiated.</p>
+      </div>
+
+      <div class="workload-cli reveal">
+        <div class="workload-cli-head"><span>TARGET NATIVE CLI</span><b>planned after Native Phase 2</b></div>
+        <pre><code><span class="dim">$</span> oryvael pull registry.example/acme/web:1
+<span class="dim">$</span> oryvael inspect acme/web:1
+<span class="dim">$</span> oryvael run web --artifact acme/web:1
+
+Artifact      acme/web@sha256:...
+Principal     workload:web
+Isolation     process
+Memory        256 MiB
+CPU           250 ms/s
+Network       DENY by default
+
+Requested authority
+  socket:tcp/8080     LISTEN, ACCEPT
+  directory:/app      READ, ENUMERATE
+  directory:/tmp      READ, WRITE
+
+Policy decision
+  <span class="ok">ELIGIBLE</span>
+
+<span class="dim">$</span> oryvael ps
+<span class="dim">$</span> oryvael logs web
+<span class="dim">$</span> oryvael stop web</code></pre>
+      </div>
+
+      <div class="workload-cli reveal">
+        <div class="workload-cli-head"><span>AVAILABLE NOW · HOST REFERENCE</span><b>manifest semantic checker</b></div>
+        <pre><code><span class="dim">$</span> cargo run --locked -p oryvael-cli -- workload-check examples/workloads/web.json
+<span class="ok">[]</span></code></pre>
+      </div>
+
+      <div class="workload-status reveal">
+        <span>IMPLEMENTATION BOUNDARY</span>
+        <p>The manifest schema, Rust model, semantic validator and <code>workload-check</code> command exist now. Native <code>pull/run/ps/logs/stop/rm</code>, artifact storage, workload lifecycle and OCI registry execution do not yet exist in the bare-metal image.</p>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="ai">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <p class="kicker">AI-native execution</p>
+          <h2>AI can propose the environment.<br />Policy owns the grant.</h2>
+          <p>A developer AI can analyze a repository and generate a workload proposal, while independent security analysis and deterministic policy decide whether the requested authority is acceptable.</p>
+        </div>
+
+        <div class="security-flow reveal" aria-label="AI workload flow">
+          <div><span>01</span><b>Analyze</b><small>source · dependencies · runtime needs</small></div><i></i>
+          <div><span>02</span><b>Propose</b><small>artifact · manifest · capabilities · budget</small></div><i></i>
+          <div><span>03</span><b>Verify</b><small>security AI · SBOM · policy · human gate</small></div><i></i>
+          <div><span>04</span><b>Instantiate</b><small>scoped workload · telemetry · evidence</small></div>
+        </div>
+
+        <div class="workload-statement reveal">
+          <p>The workload system becomes the execution boundary for autonomous development.</p>
+          <strong>AI chooses what it needs to ask for. ORYVAEL decides what it is allowed to receive.</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell section" id="path">
+      <div class="section-heading reveal">
+        <p class="kicker">Implementation path</p>
+        <h2>Build on Phase 2.<br />Do not invent a second security model.</h2>
+        <p>The workload runtime starts after the kernel already has real processes, object handles, capabilities, identities, resource accounting and audit.</p>
+      </div>
+
+      <div class="workload-path reveal">
+        <article><span>01</span><h3>Artifact store</h3><p>Content-addressed immutable objects and verified local cache.</p></article>
+        <article><span>02</span><h3>Workload manager</h3><p>Create, start, stop, replace and destroy attributed instances.</p></article>
+        <article><span>03</span><h3>Runtime objects</h3><p>Resource budgets, filesystem views, socket handles, volumes and secrets.</p></article>
+        <article><span>04</span><h3>OCI bridge</h3><p>Registry client, layers, signatures, provenance and native platform artifacts.</p></article>
+        <article><span>05</span><h3>MicroVM backend</h3><p>Stronger boundary for hostile code and Linux compatibility workloads.</p></article>
+      </div>
+
+      <div class="hero-actions reveal" style="margin-top: 42px">
+        <a class="button button-primary" href="https://github.com/jellero/ORYVAEL/blob/main/docs/architecture/native-workloads.md" target="_blank" rel="noreferrer">Read the full specification <span aria-hidden="true">↗</span></a>
+        <a class="button button-secondary" href="phase-2.html">See the Phase 2 foundation</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="section-shell footer-inner">
+      <div>
+        <a class="brand" href="index.html"><span>ORYVAEL</span></a>
+        <p>AI-native operating system research.<br />Intelligence proposes. Humans authorize. ORYVAEL enforces.</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Overview</a>
+        <a href="phase-2.html">Native Phase 2</a>
+        <a href="try.html">Try it</a>
+        <a href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">Source</a>
+      </div>
+      <p class="footer-meta">ORYVAEL Workloads is an architecture target. The manifest checker exists today; the native workload runtime is not yet delivered.</p>
+    </div>
+  </footer>
+</body>
+</html>
