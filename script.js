@@ -10,6 +10,15 @@ window.addEventListener('scroll', updateHeader, { passive: true });
 
 const nav = document.querySelector('.nav');
 const onTryPage = window.location.pathname.endsWith('/try.html') || window.location.pathname.endsWith('try.html');
+const onWorkloadsPage = window.location.pathname.endsWith('/workloads.html') || window.location.pathname.endsWith('workloads.html');
+
+if (nav && !onWorkloadsPage && !nav.querySelector('a[href="workloads.html"]')) {
+  const workloadsLink = document.createElement('a');
+  workloadsLink.href = 'workloads.html';
+  workloadsLink.textContent = 'Workloads';
+  nav.appendChild(workloadsLink);
+}
+
 if (nav && !onTryPage && !nav.querySelector('a[href="try.html"]')) {
   const tryLink = document.createElement('a');
   tryLink.href = 'try.html';
