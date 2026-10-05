@@ -30,6 +30,7 @@
       <a href="#runtime">Runtime</a>
       <a href="#security">Security</a>
       <a href="phase-2.html">Phase 2</a>
+      <a href="workloads.html">Workloads</a>
       <a href="platforms.html">Platforms</a>
       <a href="#roadmap">Roadmap</a>
     </nav>
@@ -181,6 +182,26 @@
       </div>
     </section>
 
+    <section class="section-shell section" id="workloads">
+      <div class="section-heading reveal">
+        <p class="kicker">ORYVAEL Workloads</p>
+        <h2>Containers solved portability.<br />ORYVAEL makes authority portable.</h2>
+        <p>The post-Phase-2 application model keeps the useful container philosophy — immutable artifacts, registries, fast lifecycle and isolation — while making principal identity, capabilities, resource budgets and evidence part of the native runtime contract.</p>
+      </div>
+
+      <div class="runtime-grid">
+        <article class="runtime-card reveal"><span>01 · ARTIFACT</span><h3>Content-addressed</h3><p>Native or OCI-distributed artifacts are bound to exact digests rather than trusted by mutable image name alone.</p></article>
+        <article class="runtime-card reveal"><span>02 · AUTHORITY</span><h3>No privileged mode</h3><p>A workload receives explicit object capabilities. UID 0 or compatibility semantics cannot silently widen native rights.</p></article>
+        <article class="runtime-card reveal"><span>03 · EVIDENCE</span><h3>Governed lifecycle</h3><p>Create, start, network, secret use, replacement and denial can become attributed audit evidence.</p></article>
+      </div>
+
+      <div class="runtime-note reveal">
+        <div><span class="mono">DESIGN TARGET</span><strong>Containers, evolved.</strong></div>
+        <p>The manifest schema, Rust types and <code>oryvael workload-check</code> exist now in the reference tree. The native workload manager and OCI runtime path are deliberately scheduled after the Phase 2 authority substrate.</p>
+        <a href="workloads.html">Explore ORYVAEL Workloads →</a>
+      </div>
+    </section>
+
     <section class="section-shell section" id="platforms">
       <div class="section-heading reveal">
         <p class="kicker">Product surfaces</p>
@@ -213,7 +234,7 @@
         <ol class="roadmap-list reveal">
           <li><span>Now</span><div><b>Generalize the native substrate</b><p>Owned page tables, process contexts, recoverable faults and capability object tables.</p></div></li>
           <li><span>Next</span><div><b>Become a real application platform</b><p>Persistent storage, general sockets, entropy/key provisioning, multi-process scheduling and native AI services.</p></div></li>
-          <li><span>Then</span><div><b>Port real software</b><p>Native apps, Web/WASM, POSIX compatibility and upstream applications with narrow ORYVAEL capabilities.</p></div></li>
+          <li><span>Then</span><div><b>ORYVAEL Workloads + real software</b><p>Content-addressed artifacts, governed native workload lifecycle, OCI distribution, native apps and compatibility paths.</p></div></li>
           <li><span>Later</span><div><b>Desktop → ARM64 → Mobile</b><p>Prove the human-facing model on desktop, stabilize ARM64 contracts, then extend the same core to mobile hardware.</p></div></li>
         </ol>
       </div>
@@ -225,7 +246,7 @@
       <h2>Build an operating system<br />where intelligence is powerful<br />and authority stays explicit.</h2>
       <div class="hero-actions">
         <a class="button button-primary" href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">View ORYVAEL on GitHub <span aria-hidden="true">↗</span></a>
-        <a class="button button-secondary" href="platforms.html">Explore the long-term platform vision</a>
+        <a class="button button-secondary" href="workloads.html">Explore ORYVAEL Workloads</a>
       </div>
     </section>
   </main>
@@ -239,10 +260,12 @@
       <div class="footer-links">
         <a href="https://github.com/jellero/ORYVAEL" target="_blank" rel="noreferrer">Source</a>
         <a href="phase-2.html">Native Phase 2</a>
+        <a href="workloads.html">Workloads</a>
         <a href="platforms.html">Platforms</a>
+        <a href="try.html">Try it</a>
         <a href="https://github.com/jellero/ORYVAEL/blob/main/PROJECT_STATUS.md" target="_blank" rel="noreferrer">Status</a>
       </div>
-      <p class="footer-meta">Research-stage software. Desktop and mobile sections describe architectural direction, not delivered product claims.</p>
+      <p class="footer-meta">Research-stage software. Workloads, Desktop and Mobile sections distinguish delivered contracts from architectural direction.</p>
     </div>
   </footer>
 </body>
